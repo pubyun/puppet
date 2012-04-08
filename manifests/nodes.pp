@@ -72,6 +72,9 @@ node basenode {
   }
 }
 
+node 'default' inherits basenode {
+}
+
 node 'u1.pubyun.com' inherits basenode {
 }
 
