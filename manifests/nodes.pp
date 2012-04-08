@@ -49,7 +49,7 @@ class pubyun_cron {
 }
 
 # A template host with no running services
-class pubyun_template ($iptables_public_tcp_ports) {
+class pubyun_server ($iptables_public_tcp_ports) {
   class { 'pubyun_base':
     iptables_public_tcp_ports => $iptables_public_tcp_ports
   }
@@ -57,15 +57,19 @@ class pubyun_template ($iptables_public_tcp_ports) {
   realize (
     User::Virtual::Localuser['ppyy'],
     User::Virtual::Localuser['lyl'],
+    User::Virtual::Localuser['yangxu'],
   )
+  include pubyun_cron
 }
 
 # A server that we expect to run for some time
-class pubyun_server ($iptables_public_tcp_ports) {
-  class { 'pubyun_template':
+class co188_server ($iptables_public_tcp_ports) {
+  class { 'pubyun_server':
     iptables_public_tcp_ports => $iptables_public_tcp_ports
   }
-#  include pubyun_cron
+  realize (
+    User::Virtual::Localuser['hq'],
+  )
 }
 
 node basenode {
