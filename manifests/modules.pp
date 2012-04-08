@@ -1,1 +1,1 @@
-import "sudo"
+import 'sudo'
