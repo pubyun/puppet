@@ -1,15 +1,16 @@
 class user::virtual {
-  define localuser ($realname,$sshkeys='',$shell='/bin/bash') {
+  define localuser ($uid,$realname,$sshkeys='') {
     group { $title:
       ensure => 'present'
     }
 
     user { $title:
       ensure     => 'present',
+      uid        => $uid,
+      gid        => $title,
       comment    => $realname,
       home       => "/home/$title",
-      shell      => $shell,
-      gid        => $title,
+      shell      => '/bin/bash',
       groups     => ['sudo'],
       membership => 'minimum',
       managehome => true,  # creates the home directory (does not actually manage it)
