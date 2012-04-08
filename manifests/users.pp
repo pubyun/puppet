@@ -23,3 +23,19 @@ class pubyun::users {
     sshkeys  => "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAmGiT8g7wL1emNvMGIA1jRSlSvTHVlVrlyOLR9CNkBz3/PpkoOldLti/OvdSeKHEg53SY2YHIZp0rOgkoKVUYH+i80R4r+080HZZ6NOU7GbYIjWXK+/7yo7ij+vvw51BI26lt87+ERKfiWIZYZQ+XtkTa/6xJ03YvOveJAVTeuiAnGdwiZo6AQLxxe8lA11wmFtMxHAFsq3RIjvtakuz4ajESuZyYg1q49hIW+rkIvkl5JK3u0ywYAZnBoIciKcD1BZJORZdSSpJ8jw2nlE2/TBVtCi7OVs/kbXrKszrpEtSf4ZMUBgSjlxcpxHYbJoLnkOAdXBAHKObPlDSPUQHZHQ== yangxu@pubyun.com\n",
   }
 }
+
+# 按照不同的应用，进行分组
+class user::sysadms {
+  realize (
+    User::Virtual::Localuser['ppyy'],
+    User::Virtual::Localuser['lyl'],
+    User::Virtual::Localuser['yangxu'],
+  )
+}
+
+class user::co188 {
+  realize (
+    User::Virtual::Localuser['ppyy'],
+    User::Virtual::Localuser['hq'],
+  )
+}

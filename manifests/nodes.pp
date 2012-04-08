@@ -38,6 +38,8 @@ class pubyun_base ($iptables_public_tcp_ports) {
     'byobu'
   ]
   package { $packages: ensure => 'latest' }
+
+  include pubyun_cron
 }
 
 class pubyun_cron {
@@ -53,23 +55,15 @@ class pubyun_server ($iptables_public_tcp_ports) {
   class { 'pubyun_base':
     iptables_public_tcp_ports => $iptables_public_tcp_ports
   }
-
-  realize (
-    User::Virtual::Localuser['ppyy'],
-    User::Virtual::Localuser['lyl'],
-    User::Virtual::Localuser['yangxu'],
-  )
-  include pubyun_cron
+  include user::sysadms
 }
 
 # A server that we expect to run for some time
 class co188_server ($iptables_public_tcp_ports) {
-  class { 'pubyun_server':
+  class { 'pubyun_base':
     iptables_public_tcp_ports => $iptables_public_tcp_ports
   }
-  realize (
-    User::Virtual::Localuser['hq'],
-  )
+  include user::co188
 }
 
 node basenode {
