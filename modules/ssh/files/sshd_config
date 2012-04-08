@@ -56,7 +56,7 @@ PasswordAuthentication no
 #KerberosTicketCleanup yes
 
 # GSSAPI options
-#GSSAPIAuthentication no
+GSSAPIAuthentication no
 #GSSAPICleanupCredentials yes
 
 X11Forwarding yes
@@ -84,3 +84,5 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 # PAM authentication, then enable this but set PasswordAuthentication
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
+
+UseDNS no
