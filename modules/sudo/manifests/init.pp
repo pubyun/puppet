@@ -1,7 +1,7 @@
 class sudo {
     package { 'sudo': ensure => latest }
 
-    group { 'sudo':
+    group { 'adm':
         ensure => 'present'
     }
 
@@ -10,7 +10,8 @@ class sudo {
         owner   => 'root',
         group   => 'root',
         mode    => '0440',
-        source  => 'puppet:///modules/sudo/sudoers',
+        source  => [ 'puppet:///modules/sudo/per-host/$fqdn/sudoers',
+                     'puppet:///modules/sudo/sudoers' ],
         replace => 'true',
         require => Package['sudo'],
     }

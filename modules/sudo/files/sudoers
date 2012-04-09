@@ -10,6 +10,8 @@ Defaults	env_reset
 Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # Host alias specification
+#
+#Host_Alias      WEBHOSTS = bender
 
 # User alias specification
 
@@ -18,9 +20,11 @@ Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b
 # User privilege specification
 root	ALL=(ALL:ALL) ALL
 
-
 # Allow members of group sudo to execute any command
-%sudo   ALL=(ALL:ALL) NOPASSWD: ALL
+%adm   ALL=(ALL:ALL) NOPASSWD: ALL
+
+# The webteam has some rights on webhosts
+#%web   WEBHOSTS=(root) NOPASSWD: /etc/init.d/apache2 reload
 
 # See sudoers(5) for more information on "#include" directives:
 
