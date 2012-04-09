@@ -1,7 +1,5 @@
-import 'users'
 
 class pubyun_base ($iptables_public_tcp_ports) {
-  include pubyun::users
   include ssh
   include sudo
 
@@ -55,7 +53,6 @@ class pubyun_server ($iptables_public_tcp_ports) {
   class { 'pubyun_base':
     iptables_public_tcp_ports => $iptables_public_tcp_ports
   }
-  include user::sysadms
 }
 
 # A server that we expect to run for some time
@@ -63,7 +60,6 @@ class co188_server ($iptables_public_tcp_ports) {
   class { 'pubyun_base':
     iptables_public_tcp_ports => $iptables_public_tcp_ports
   }
-  include user::co188
 }
 
 node basenode {
