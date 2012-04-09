@@ -1,7 +1,8 @@
 # We have some other classes to grab too.
-import "groups"
-import "people"
-import "roles"
+import 'groups'
+import 'people'
+import 'roles'
+import 'web.pp'
 # define useraccount
 # creates a user with their complete home directory, including ssh key(s),
 # shell profile(s) and anything else.
@@ -9,12 +10,12 @@ import "roles"
 # be used to create all users, and then the users required on the particular
 # node are specified through the various user classes.
 # Example:
-# @useraccount { "username":
-#   ensure   => "present",
+# @useraccount { 'username':
+#   ensure   => 'present',
 #   uid      => 500,
 #   pgroup   => users,
-#   groups   => ["staff", "other"],
-#   fullname => "New User",
+#   groups   => ['staff', 'other'],
+#   fullname => 'New User',
 #   homefs   => "$homefs",
 #   shell    => "$shell",
 # }
@@ -29,8 +30,8 @@ define useraccount ( $ensure = present, $fullname, $uid, $pgroup = pubyun, $grou
             $home_group = $pgroup
         }
         default: {
-            $home_owner = "root"
-            $home_group = "root"
+            $home_owner = 'root'
+            $home_group = 'root'
         }
     }
     # Create the user with their groups as specified
@@ -48,21 +49,21 @@ define useraccount ( $ensure = present, $fullname, $uid, $pgroup = pubyun, $grou
         ensure  => directory,
         owner   => $home_owner,
         group   => $home_group,
-        mode    => 750,
-        require => User["${username}"],
+        mode    => '0750',
+        require => User[$username],
     }
     file { "${homefs}/${username}/.ssh":
         ensure  => directory,
         owner   => $home_owner,
         group   => $home_group,
-        mode    => 700,
+        mode    => '0700',
         require => File["${homefs}/${username}"],
     }
     file { "${homefs}/${username}/.ssh/authorized_keys":
         ensure  => present,
         owner   => $home_owner,
         group   => $home_group,
-        mode    => 600,
+        mode    => '0600',
         require => File["${homefs}/${username}/.ssh"],
         source  => "puppet:///modules/users/${username}/.ssh/authorized_keys",
     }
@@ -74,7 +75,7 @@ define useraccount ( $ensure = present, $fullname, $uid, $pgroup = pubyun, $grou
         ensure  => present,
         owner   => $home_owner,
         group   => $home_group,
-        mode    => 640,
+        mode    => '0640',
         require => File["${homefs}/${username}"],
         source  => "puppet:///modules/users/${username}/.bashrc",
     }
@@ -94,8 +95,8 @@ define roleaccount ( $ensure = present, $uid, $pgroup = pubyun, $groups, $fullna
             $home_group = $pgroup
         }
         default: {
-            $home_owner = "root"
-            $home_group = "root"
+            $home_owner = 'root'
+            $home_group = 'root'
         }
     }
     # Create the user with their groups as specified
@@ -113,8 +114,8 @@ define roleaccount ( $ensure = present, $uid, $pgroup = pubyun, $groups, $fullna
         ensure  => directory,
         owner   => $home_owner,
         group   => $home_group,
-        mode    => 750,
-        require => User["${username}"],
+        mode    => '0750',
+        require => User[$username],
     }
 }
 

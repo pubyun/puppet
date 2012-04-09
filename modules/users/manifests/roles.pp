@@ -1,50 +1,50 @@
 # class users::roles
 class users::roles {
-  $group  =  "root"
-  $shell  =  "/bin/false"
-  $homefs = "/srv/roles"
+  $group  =  'root'
+  $shell  =  '/bin/false'
+  $homefs = '/srv/roles'
 
   file { $homefs:
     ensure  => directory,
-    owner   => "root",
+    owner   => 'root',
     group   => $group,
-    mode    => 2755
+    mode    => '2755'
   }
 
-  @roleaccount { "archive":
-    ensure   => "present",
-    uid      => "2000",
-    pgroup   => "archive",
+  @roleaccount { 'archive':
+    ensure   => 'present',
+    uid      => '2000',
+    pgroup   => 'archive',
     groups   => ['archive'],
-    fullname => "Archiving role account",
+    fullname => 'Archiving role account',
     homefs   => $homefs,
-    shell    => "/bin/false",
+    shell    => '/bin/false',
   }
-  @roleaccount { "synopsis":
-    ensure   => "present",
-    uid      => "2001",
-    pgroup   => "synopsis",
+  @roleaccount { 'synopsis':
+    ensure   => 'present',
+    uid      => '2001',
+    pgroup   => 'synopsis',
     groups   => ['synopsis'],
-    fullname => "Fresco/Synopsis role account",
+    fullname => 'Fresco/Synopsis role account',
     homefs   => $homefs,
-    shell    => "/bin/sh",
+    shell    => '/bin/sh',
   }
-  @roleaccount { "www-treasurer":
-    ensure   => "present",
-    uid      => "2002",
-    pgroup   => "www-treasurer",
+  @roleaccount { 'www-treasurer':
+    ensure   => 'present',
+    uid      => '2002',
+    pgroup   => 'www-treasurer',
     groups   => ['www-treasurer'],
-    fullname => "treasurer webpage role user",
+    fullname => 'treasurer webpage role user',
     homefs   => $homefs,
-    shell    => "/bin/false",
+    shell    => '/bin/false',
   }
-  @roleaccount { "treasurer":
-    ensure   => "present",
-    uid      => "2003",
-    pgroup   => "treasurer",
+  @roleaccount { 'treasurer':
+    ensure   => 'present',
+    uid      => '2003',
+    pgroup   => 'treasurer',
     groups   => ['treasurer'],
-    fullname => "treasurer role account",
+    fullname => 'treasurer role account',
     homefs   => $homefs,
-    shell    => "/bin/sh",
+    shell    => '/bin/sh',
   }
 }

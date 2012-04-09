@@ -1,57 +1,57 @@
 class users::groups {
   group { 'web':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 500,
+    gid       => 500,
   }
   group { 'pubyun':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 501,
+    gid       => 501,
   }
   group { 'bacula':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 502,
+    gid       => 502,
   }
   group { 'puppetvcs':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 503,
+    gid       => 503,
   }
   group { 'secretary':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 504,
+    gid       => 504,
   }
   group { 'git':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 505,
+    gid       => 505,
   }
   group { 'ssh':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 506,
+    gid       => 506,
   }
   group { 'archive':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 507,
+    gid       => 507,
   }
   group { 'synopsis':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 508,
+    gid       => 508,
   }
   group { 'www-treasurer':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 509,
+    gid       => 509,
   }
   group { 'treasurer':
+    ensure    => present,
     allowdupe => false,
-    ensure => present,
-    gid => 510,
+    gid       => 510,
   }
 }
