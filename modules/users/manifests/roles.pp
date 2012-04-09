@@ -20,31 +20,4 @@ class users::roles {
     homefs   => $homefs,
     shell    => '/bin/false',
   }
-  @roleaccount { 'synopsis':
-    ensure   => 'present',
-    uid      => '2001',
-    pgroup   => 'synopsis',
-    groups   => ['synopsis'],
-    fullname => 'Fresco/Synopsis role account',
-    homefs   => $homefs,
-    shell    => '/bin/sh',
-  }
-  @roleaccount { 'www-treasurer':
-    ensure   => 'present',
-    uid      => '2002',
-    pgroup   => 'www-treasurer',
-    groups   => ['www-treasurer'],
-    fullname => 'treasurer webpage role user',
-    homefs   => $homefs,
-    shell    => '/bin/false',
-  }
-  @roleaccount { 'treasurer':
-    ensure   => 'present',
-    uid      => '2003',
-    pgroup   => 'treasurer',
-    groups   => ['treasurer'],
-    fullname => 'treasurer role account',
-    homefs   => $homefs,
-    shell    => '/bin/sh',
-  }
 }

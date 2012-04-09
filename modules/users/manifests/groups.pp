@@ -39,19 +39,4 @@ class users::groups {
     allowdupe => false,
     gid       => 507,
   }
-  group { 'synopsis':
-    ensure    => present,
-    allowdupe => false,
-    gid       => 508,
-  }
-  group { 'www-treasurer':
-    ensure    => present,
-    allowdupe => false,
-    gid       => 509,
-  }
-  group { 'treasurer':
-    ensure    => present,
-    allowdupe => false,
-    gid       => 510,
-  }
 }
