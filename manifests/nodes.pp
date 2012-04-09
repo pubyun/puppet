@@ -1,7 +1,5 @@
 
 class pubyun_base ($iptables_public_tcp_ports) {
-  include ssh
-  include sudo
 
 # 由于 iptables-persistent 安装出错，暂时禁止
 #  class { 'iptables':
@@ -37,6 +35,12 @@ class pubyun_base ($iptables_public_tcp_ports) {
   ]
   package { $packages: ensure => 'latest' }
 
+  include users::noc
+  include users::roles
+  include users::groups
+  include users::people
+  include ssh
+  include sudo
   include pubyun_cron
 }
 
@@ -51,14 +55,14 @@ class pubyun_cron {
 # A template host with no running services
 class pubyun_server ($iptables_public_tcp_ports) {
   class { 'pubyun_base':
-    iptables_public_tcp_ports => $iptables_public_tcp_ports
+    iptables_public_tcp_ports => $pubyun_server::iptables_public_tcp_ports
   }
 }
 
 # A server that we expect to run for some time
 class co188_server ($iptables_public_tcp_ports) {
   class { 'pubyun_base':
-    iptables_public_tcp_ports => $iptables_public_tcp_ports
+    iptables_public_tcp_ports => $co188_server::iptables_public_tcp_ports
   }
 }
 
