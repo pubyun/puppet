@@ -121,20 +121,15 @@ define roleaccount ( $ensure = present, $uid, $pgroup = pubyun, $groups, $fullna
 
 class users::noc {
   realize (
-    Useraccount[joerg],
-    Useraccount[schultmc]
+    Useraccount[ppyy],
+    Useraccount[lyl],
+    Useraccount[yangxu],
   )
 }
 
 class users::web {
   realize (
-    Useraccount[bdale],
-    Useraccount[noodles]
+    Useraccount[hq],
   )
 }
 
-class users::synopsis {
-  realize (
-    Useraccount[stefan]
-  )
-}

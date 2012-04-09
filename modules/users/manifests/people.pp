@@ -12,52 +12,42 @@ class users::people {
     mode    => 2755
   }
 
-  @useraccount { "joerg":
+  @useraccount { "ppyy":
     ensure   => "present",
+    fullname => "Peng Yong",
     uid      => "1000",
     pgroup   => "pubyun",
     groups   => ['bacula','puppetvcs', 'adm', 'pubyun', 'list', 'web', 'ssh'],
-    fullname => "Joerg Jaspert",
     homefs   => $homefs,
-    shell    => "/usr/bin/zsh",
+    shell    => $shell
   }
 
-  @useraccount { "schultmc":
+  @useraccount { "lyl":
     ensure   => "present",
+    fullname => "Liu YunLong",
     uid      => "1001",
     pgroup   => "pubyun",
     groups   => ['bacula','puppetvcs', 'adm', 'pubyun', 'list', 'web', 'ssh'],
-    fullname => "Michael Schultheiss",
     homefs   => $homefs,
     shell    => $shell,
   }
 
-  @useraccount { "bdale":
+  @useraccount { "hq":
     ensure   => "present",
-    uid      => "1010",
+    fullname => "Hua Qiang",
+    uid      => "1002",
     pgroup   => "pubyun",
     groups   => ['pubyun', 'web', 'ssh'],
-    fullname => "Bdale Garbee",
     homefs   => $homefs,
     shell    => $shell,
   }
 
-  @useraccount { "noodles":
+  @useraccount { "yangxu":
     ensure   => "present",
-    uid      => "1011",
+    fullname => "Yang Xu",
+    uid      => "1003",
     pgroup   => "pubyun",
     groups   => ['pubyun', 'web', 'secretary', 'ssh'],
-    fullname => "Jonathan McDowell",
-    homefs   => $homefs,
-    shell    => $shell,
-  }
-
-  @useraccount { "stefan":
-    ensure   => "present",
-    uid      => "1012",
-    pgroup   => "synopsis",
-    groups   => ['synopsis', 'ssh'],
-    fullname => "Stefan Seefeld",
     homefs   => $homefs,
     shell    => $shell,
   }
