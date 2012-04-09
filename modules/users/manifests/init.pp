@@ -83,6 +83,14 @@ define useraccount ( $ensure = present, $fullname, $uid, $pgroup = pubyun, $grou
         ensure  => "${homefs}/${username}/.bashrc",
         require => File["${homefs}/${username}/.bashrc"],
     }
+    file { "${homefs}/${username}/.vimrc":
+        ensure  => present,
+        owner   => $home_owner,
+        group   => $home_group,
+        mode    => '0640',
+        require => File["${homefs}/${username}"],
+        source  => "puppet:///modules/users/${username}/.vimrc",
+    }
 }
 
 define roleaccount ( $ensure = present, $uid, $pgroup = pubyun, $groups, $fullname, $homefs, $shell) {
