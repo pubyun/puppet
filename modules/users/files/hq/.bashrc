@@ -13,8 +13,10 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTIGNORE="ls:cd:pwd"
+HISTSIZE=3000
+HISTFILESIZE=5000
+HISTTIMEFORMAT="%F %T"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -105,3 +107,84 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias du='du -kh'       # Makes a more readable output.
+alias df='df -kTh'
+
+#-------------------------------------------------------------
+# The 'ls' family (this assumes you use a recent GNU ls)
+#-------------------------------------------------------------
+alias ll="ls -l --group-directories-first"
+alias ls='ls -hF --color'  # add colors for filetype recognition
+alias la='ls -Al'          # show hidden files
+alias lx='ls -lXB'         # sort by extension
+alias lk='ls -lSr'         # sort by size, biggest last
+alias lc='ls -ltcr'        # sort by and show change time, most recent last
+alias lu='ls -ltur'        # sort by and show access time, most recent last
+alias lt='ls -ltr'         # sort by date, most recent last
+alias lm='ls -al |more'    # pipe through 'more'
+alias lr='ls -lR'          # recursive ls
+alias tree='tree -Csu'     # nice alternative to 'recursive ls'
+
+# Save all lines of a multiple-line command in the same history entry
+shopt -s cmdhist
+
+# Find a file with a pattern in name:
+function ff() { find . -type f -iname '*'$*'*' -ls ; }
+
+# Find a file with pattern $1 in name and Execute $2 on it:
+function fe()
+{ find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
+
+# Find a pattern in a set of files and highlight them:
+# (needs a recent version of egrep)
+function fstr()
+{
+    OPTIND=1
+    local case=""
+    local usage="fstr: find string in files.
+Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
+    while getopts :it opt
+    do
+        case "$opt" in
+        i) case="-i " ;;
+        *) echo "$usage"; return;;
+        esac
+    done
+    shift $(( $OPTIND - 1 ))
+    if [ "$#" -lt 1 ]; then
+        echo "$usage"
+        return;
+    fi
+    find . -type f -name "${2:-*}" -print0 | \
+        xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more
+}
+
+
+## Set the prompt to display the current git branch
+## and use pretty colors
+export PS1='$(git branch &>/dev/null; if [ $? -eq 0 ]; then \
+    echo "\[\e[1m\]\u@\h\[\e[0m\]: \w [\[\e[34m\]$(git branch | grep ^* | sed s/\*\ //)\[\e[0m\]\
+    $(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; if [ "$?" -ne "0" ]; then \
+    echo "\[\e[1;31m\]*\[\e[0m\]"; fi)] \$ "; else \
+    echo "\[\e[1m\]\u@\h\[\e[0m\]: \w \$ "; fi )'
+
+alias update='apt-get update'
+alias install='apt-get install'
+alias upgrade='apt-get upgrade'
+alias purge='apt-get purge'
+
+export LANG=en_US.UTF-8
+
+EDITOR=vim;      export EDITOR
+PAGER=less;     export PAGER
+
+set -o vi
