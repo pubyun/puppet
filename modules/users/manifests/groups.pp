@@ -4,7 +4,7 @@ class users::groups {
     ensure => present,
     gid => 500,
   }
-  group { 'spi':
+  group { 'pubyun':
     allowdupe => false,
     ensure => present,
     gid => 501,

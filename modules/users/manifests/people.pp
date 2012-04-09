@@ -15,8 +15,8 @@ class users::people {
   @useraccount { "joerg":
     ensure   => "present",
     uid      => "1000",
-    pgroup   => "spi",
-    groups   => ['bacula','puppetvcs', 'adm', 'spi', 'list', 'web', 'ssh'],
+    pgroup   => "pubyun",
+    groups   => ['bacula','puppetvcs', 'adm', 'pubyun', 'list', 'web', 'ssh'],
     fullname => "Joerg Jaspert",
     homefs   => $homefs,
     shell    => "/usr/bin/zsh",
@@ -25,8 +25,8 @@ class users::people {
   @useraccount { "schultmc":
     ensure   => "present",
     uid      => "1001",
-    pgroup   => "spi",
-    groups   => ['bacula','puppetvcs', 'adm', 'spi', 'list', 'web', 'ssh'],
+    pgroup   => "pubyun",
+    groups   => ['bacula','puppetvcs', 'adm', 'pubyun', 'list', 'web', 'ssh'],
     fullname => "Michael Schultheiss",
     homefs   => $homefs,
     shell    => $shell,
@@ -35,8 +35,8 @@ class users::people {
   @useraccount { "bdale":
     ensure   => "present",
     uid      => "1010",
-    pgroup   => "spi",
-    groups   => ['spi', 'web', 'ssh'],
+    pgroup   => "pubyun",
+    groups   => ['pubyun', 'web', 'ssh'],
     fullname => "Bdale Garbee",
     homefs   => $homefs,
     shell    => $shell,
@@ -45,8 +45,8 @@ class users::people {
   @useraccount { "noodles":
     ensure   => "present",
     uid      => "1011",
-    pgroup   => "spi",
-    groups   => ['spi', 'web', 'secretary', 'ssh'],
+    pgroup   => "pubyun",
+    groups   => ['pubyun', 'web', 'secretary', 'ssh'],
     fullname => "Jonathan McDowell",
     homefs   => $homefs,
     shell    => $shell,

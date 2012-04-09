@@ -19,7 +19,7 @@ import "roles"
 #   shell    => "$shell",
 # }
 
-define useraccount ( $ensure = present, $uid, $pgroup = spi, $groups, $fullname, $homefs, $shell) {
+define useraccount ( $ensure = present, $uid, $pgroup = pubyun, $groups, $fullname, $homefs, $shell) {
     $username = $name
     # This case statement will allow disabling an account by passing
     # ensure => absent, to set the home directory ownership to root.
@@ -84,7 +84,7 @@ define useraccount ( $ensure = present, $uid, $pgroup = spi, $groups, $fullname,
     }
 }
 
-define roleaccount ( $ensure = present, $uid, $pgroup = spi, $groups, $fullname, $homefs, $shell) {
+define roleaccount ( $ensure = present, $uid, $pgroup = pubyun, $groups, $fullname, $homefs, $shell) {
     $username = $name
     # This case statement will allow disabling an account by passing
     # ensure => absent, to set the home directory ownership to root.
