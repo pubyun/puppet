@@ -16,7 +16,7 @@ shopt -s histappend
 HISTIGNORE="ls:cd:pwd"
 HISTSIZE=3000
 HISTFILESIZE=5000
-HISTTIMEFORMAT="%F %T"
+HISTTIMEFORMAT="%F %T "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
