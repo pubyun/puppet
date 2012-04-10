@@ -47,7 +47,11 @@ Host *
 #   PermitLocalCommand no
 #   VisualHostKey no
 #   ProxyCommand ssh -q -W %h:%p gateway.example.com
-    SendEnv LANG LC_*
+    SendEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+    SendEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+    SendEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+    SendEnv XMODIFIERS
+
     HashKnownHosts yes
     GSSAPIAuthentication no
     GSSAPIDelegateCredentials no
