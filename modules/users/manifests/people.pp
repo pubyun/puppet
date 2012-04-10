@@ -17,7 +17,7 @@ class users::people {
     fullname => 'Peng Yong',
     uid      => '1000',
     pgroup   => 'pubyun',
-    groups   => ['bacula','puppetvcs', 'adm', 'pubyun', 'list', 'web', 'ssh'],
+    groups   => ['bacula','puppetvcs', 'adm', 'pubyun', 'web', 'ssh'],
     homefs   => $homefs,
     shell    => $shell,
   }
@@ -27,7 +27,7 @@ class users::people {
     fullname => 'Liu YunLong',
     uid      => '1001',
     pgroup   => 'pubyun',
-    groups   => ['bacula','puppetvcs', 'adm', 'pubyun', 'list', 'web', 'ssh'],
+    groups   => ['bacula','puppetvcs', 'adm', 'pubyun', 'web', 'ssh'],
     homefs   => $homefs,
     shell    => $shell,
   }
