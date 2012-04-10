@@ -6,7 +6,33 @@
 #
 # See the man page for details on how to write a sudoers file.
 #
-Defaults	env_reset
+#
+# Disable "ssh hostname sudo <cmd>", because it will show the password in clear.
+#         You have to run "ssh -t hostname sudo <cmd>".
+#
+Defaults    requiretty
+
+Defaults   !visiblepw
+
+
+# Preserving HOME has security implications since many programs
+# use it when searching for configuration files.
+#
+Defaults    always_set_home
+
+Defaults    env_reset
+Defaults    env_keep =  "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS"
+Defaults    env_keep += "MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE"
+Defaults    env_keep += "LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES"
+Defaults    env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE"
+Defaults    env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY"
+
+
+# Adding HOME to env_keep may enable a user to run unrestricted
+# commands via sudo.
+#
+# Defaults   env_keep += "HOME"
+
 Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # Host alias specification
@@ -25,6 +51,13 @@ root	ALL=(ALL:ALL) ALL
 
 # The webteam has some rights on webhosts
 #%web   WEBHOSTS=(root) NOPASSWD: /etc/init.d/apache2 reload
+
+# Allows members of the users group to mount and unmount the
+## cdrom as root
+# %users  ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom
+
+## Allows members of the users group to shutdown this system
+# %users  localhost=/sbin/shutdown -h now
 
 # See sudoers(5) for more information on "#include" directives:
 
