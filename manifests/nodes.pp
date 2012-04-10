@@ -6,16 +6,7 @@ class pubyun_base ($iptables_public_tcp_ports) {
 #    public_tcp_ports => $iptables_public_tcp_ports,
 #  }
 
-  service { 'ntpd':
-    ensure     => running,
-    name       => 'ntp',
-    enable     => true,
-    hasrestart => true,
-    require    => Package['ntp'],
-  }
-
   $packages = ['puppet',
-    'ntp',
     'git',
     'python-setuptools',
     'python-pip',
@@ -28,6 +19,7 @@ class pubyun_base ($iptables_public_tcp_ports) {
   include users::groups
   include users::people
   include ssh
+  include ntp
   include sudo
   include postfix
   include pubyun_cron
