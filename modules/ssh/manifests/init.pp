@@ -1,12 +1,16 @@
 class ssh {
-    package {
-        'openssh-client': ensure => latest;
-        'openssh-server': ensure => latest;
-    }
+  case $operatingsystem {
+    centos: { $packages = ['openssh-clients', 'openssh-server'] }
+    redhat: { $packages = ['openssh-clients', 'openssh-server'] }
+    debian: { $packages = ['openssh-client', 'openssh-server'] }
+    ubuntu: { $packages = ['openssh-client', 'openssh-server'] }
+    default: { fail("Unrecognized operating system for webserver") }
+  }
+  package { $packages: ensure => 'latest' }
+
     file { 
       '/etc/ssh/ssh_config':
           source  => [ 'puppet:///modules/ssh/ssh_config' ],
-          require => Package['openssh-client']
         ; 
       '/etc/ssh/sshd_config':
           ensure => 'present',
@@ -18,7 +22,6 @@ class ssh {
               'puppet:///modules/ssh/sshd_config'
           ],
           replace => 'true',
-          require => Package['openssh-client']
         ;
     }
     service { 'ssh':
