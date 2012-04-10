@@ -1,10 +1,9 @@
 class postfix {
     package {
         'postfix': ensure => present;
-        'mailutils': ensure => present
     }
     
-    file { '/etc/postfix/aliases':
+    file { '/etc/aliases':
         require => Package['postfix'],
         content => template('postfix/aliases.erb'),
         notify => Exec['postalias'],
@@ -31,12 +30,12 @@ class postfix {
     service { 'postfix':
         ensure => running,
         enable => true,
-        require => Package['postfix', 'mailutils'],
+        require => Package['postfix'],
     }
     
     exec { 'postalias':
-        command => '/usr/sbin/postalias /etc/postfix/aliases',
-        require => File['/etc/postfix/aliases'],
+        command => '/usr/sbin/postalias /etc/aliases',
+        require => File['/etc/aliases'],
         refreshonly => true,
     }
 }
