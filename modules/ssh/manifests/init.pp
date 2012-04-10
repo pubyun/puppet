@@ -1,4 +1,4 @@
-class ssh {
+class ssh ($listenport='53399') {
   case $operatingsystem {
     centos, redhat: {
         $packages = ['openssh-clients', 'openssh-server']
@@ -16,17 +16,14 @@ class ssh {
 
     file { 
       '/etc/ssh/ssh_config':
-          source  => [ 'puppet:///modules/ssh/ssh_config' ],
+          content => template('ssh/ssh_config'),
         ; 
       '/etc/ssh/sshd_config':
           ensure => 'present',
           owner  => 'root',
           group  => 'root',
           mode   => '0444',
-          source => [
-              "puppet:///modules/ssh/${config}",
-              'puppet:///modules/ssh/sshd_config'
-          ],
+          content => template("ssh/${config}"),
           replace => 'true',
         ;
     }
