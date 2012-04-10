@@ -79,10 +79,6 @@ define useraccount ( $ensure = present, $fullname, $uid, $pgroup = pubyun, $grou
         require => File["${homefs}/${username}"],
         source  => "puppet:///modules/users/${username}/.bashrc",
     }
-    file { "${homefs}/${username}/.bash_profile":
-        ensure  => "${homefs}/${username}/.bashrc",
-        require => File["${homefs}/${username}/.bashrc"],
-    }
     file { "${homefs}/${username}/.vimrc":
         ensure  => present,
         owner   => $home_owner,
