@@ -6,18 +6,6 @@ class pubyun_base ($iptables_public_tcp_ports) {
 #    public_tcp_ports => $iptables_public_tcp_ports,
 #  }
 
-  file { '/etc/profile.d/Z98-byobu.sh':
-    ensure => 'absent'
-  }
-
-  package { 'ntp':
-    ensure => installed
-  }
-
-  package { 'popularity-contest':
-    ensure => purged
-  }
-
   service { 'ntpd':
     ensure     => running,
     name       => 'ntp',
@@ -26,12 +14,12 @@ class pubyun_base ($iptables_public_tcp_ports) {
     require    => Package['ntp'],
   }
 
-  $packages = ['python-software-properties',
-    'puppet',
+  $packages = ['puppet',
+    'ntp',
     'git',
     'python-setuptools',
+    'python-pip',
     'python-virtualenv',
-    'byobu'
   ]
   package { $packages: ensure => 'latest' }
 
