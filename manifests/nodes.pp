@@ -41,6 +41,7 @@ class pubyun_base ($iptables_public_tcp_ports) {
   include users::people
   include ssh
   include sudo
+  include postfix
   include pubyun_cron
 }
 
