@@ -67,11 +67,6 @@ Facter.add("php5suhosin") do
       FileTest.exist?("/usr/lib/php5/20060613+lfs/suhosin.so")
   end
 end
-Facter.add("syslogversion") do
-  setcode do
-    %x{dpkg-query -W -f='${Version}\n' syslog-ng | cut -b1}.chomp
-  end
-end
 Facter.add("unbound") do
   setcode do
     FileTest.exist?("/usr/sbin/unbound") and
