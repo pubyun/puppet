@@ -29,7 +29,7 @@ class pubyun_cron {
   cron { 'updatepuppet':
     user    => root,
     minute  => '*/15',
-    command => 'apt-get update >/dev/null 2>&1 ; sleep $((RANDOM\%600)) && cd /root/puppet && /usr/bin/git pull -q && puppet apply -l /tmp/manifest.log --modulepath =/root/puppet/modules manifests/site.pp', environment => 'PATH=/usr/bin:/bin:/usr/sbin:/sbin',
+    command => 'sleep $((RANDOM\%600)) && cd /root/puppet && /usr/bin/git pull -q && puppet apply -l /tmp/manifest.log --modulepath =/root/puppet/modules manifests/site.pp', environment => 'PATH=/usr/bin:/bin:/usr/sbin:/sbin',
   }
 }
 
