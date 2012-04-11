@@ -77,7 +77,10 @@ define useraccount ( $ensure = present, $fullname, $uid, $pgroup = pubyun, $grou
         group   => $home_group,
         mode    => '0640',
         require => File["${homefs}/${username}"],
-        source  => "puppet:///modules/users/${username}/.bashrc",
+        source  => [
+		   "puppet:///modules/users/${username}/.bashrc",
+		   "puppet:///modules/users/.bashrc",
+		   ],
     }
     file { "${homefs}/${username}/.bash_profile":
         ensure  => "${homefs}/${username}/.bashrc",
