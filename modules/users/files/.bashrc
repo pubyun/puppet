@@ -83,11 +83,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -122,6 +117,7 @@ alias df='df -kTh'
 #-------------------------------------------------------------
 # The 'ls' family (this assumes you use a recent GNU ls)
 #-------------------------------------------------------------
+alias l='ls -CF'
 alias ll="ls -l --group-directories-first"
 alias ls='ls -hF --color'  # add colors for filetype recognition
 alias la='ls -Al'          # show hidden files
@@ -168,14 +164,43 @@ Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
         xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more
 }
 
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
 
-## Set the prompt to display the current git branch
-## and use pretty colors
-export PS1='$(git branch &>/dev/null; if [ $? -eq 0 ]; then \
-    echo "\[\e[1m\]\u@\h\[\e[0m\]: \w [\[\e[34m\]$(git branch | grep ^* | sed s/\*\ //)\[\e[0m\]\
-    $(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; if [ "$?" -ne "0" ]; then \
-    echo "\[\e[1;31m\]*\[\e[0m\]"; fi)] \$ "; else \
-    echo "\[\e[1m\]\u@\h\[\e[0m\]: \w \$ "; fi )'
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
+    else
+        color_prompt=
+    fi
+fi
+
+parse_git_branch() {
+    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
+    if [ "$branch" ]; then
+        if [ "$branch" = '((no branch))' ]; then
+            tag=$(git describe 2> /dev/null)
+            if [ $? -eq 0 ]; then
+                echo "(no branch, $tag)"
+            fi
+        else
+            echo $branch
+        fi
+    fi
+}
+
+if [ "$color_prompt" = yes ]; then
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(parse_git_branch)\$ '
+else
+        PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
+fi
+
+unset color_prompt force_color_prompt
 
 alias update='apt-get update'
 alias install='apt-get install'
@@ -184,7 +209,29 @@ alias purge='apt-get purge'
 
 export LANG=en_US.UTF-8
 
-EDITOR=vim;      export EDITOR
+# Set to 'C' to make ls sort dotfiles
+export LC_COLLATE=C
+
+if [ -x "/usr/bin/vim" ]; then
+    EDITOR="vim"
+    alias vi=$EDITOR
+    export EDITOR
+fi
+
 PAGER=less;     export PAGER
+
+
+# virtualenv aliases
+# http://blog.doughellmann.com/2010/01/virtualenvwrapper-tips-and-tricks.html
+alias v='workon'
+alias v.deactivate='deactivate'
+alias v.mk='mkvirtualenv --no-site-packages'
+alias v.mk_withsitepackages='mkvirtualenv'
+alias v.rm='rmvirtualenv'
+alias v.switch='workon'
+alias v.add2virtualenv='add2virtualenv'
+alias v.cdsitepackages='cdsitepackages'
+alias v.cd='cdvirtualenv'
+alias v.lssitepackages='lssitepackages'
 
 set -o vi
