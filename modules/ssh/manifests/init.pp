@@ -2,12 +2,10 @@ class ssh ($listenport='53399') {
   case $operatingsystem {
     centos, redhat: {
         $packages = ['openssh-clients', 'openssh-server']
-        $config = 'sshd_config.el'
         $service  = 'sshd'
     }
     debian, ubuntu: {
         $packages = ['openssh-client', 'openssh-server']
-        $config = 'sshd_config.debian'
         $service  = 'ssh'
     }
     default: { fail("Unrecognized operating system for webserver") }
@@ -23,7 +21,7 @@ class ssh ($listenport='53399') {
           owner  => 'root',
           group  => 'root',
           mode   => '0444',
-          content => template("ssh/${config}"),
+          content => template('ssh/sshd_config'),
           replace => 'true',
         ;
     }
