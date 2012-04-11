@@ -69,9 +69,6 @@ TCPKeepAlive yes
 #MaxStartups 10:30:60
 #Banner /etc/issue.net
 
-# Allow client to pass locale environment variables
-AcceptEnv LANG LC_*
-
 Subsystem sftp /usr/lib/openssh/sftp-server
 
 # Set this to 'yes' to enable PAM authentication, account processing,
@@ -85,11 +82,13 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
 
+# Allow client to pass locale environment variables
+#AcceptEnv LANG LC_*
 AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
 AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
 AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
 AcceptEnv XMODIFIERS
 
-AlowGroups ssh
+AllowGroups ssh
 
 UseDNS no
